@@ -1,23 +1,26 @@
-# calibration_string_file = open("day_1_input.txt", "r")
-# calibration_strings = []
-# for string in calibration_string_file:
-#     string = string.strip()  # Remove /n from each string
-#     calibration_strings.append(string)  # Updates lines with new string
+calibration_string_file = open("day_1_input.txt", "r")
+initial_calibration_strings = []
+for string in calibration_string_file:
+    string = string.strip()  # Remove /n from each string
+    initial_calibration_strings.append(string)  # Updates lines with new string
 
-initial_calibration_strings = [
-    "two1nine",
-    # "eightwothree",
-    # "abcone2threexyz",
-    # "xtwone3four",
-    # "4nineeightseven2",
-    "zoneight234",
-    # "7pqrstsixteen",
-    # "eighthree",
-    "sevenine",
-]
+
+# Test case data
+# initial_calibration_strings = [
+#     "two1nine",
+#     "eightwothree",
+#     "abcone2threexyz",
+#     "xtwone3four",
+#     "4nineeightseven2",
+#     "zoneight234",
+#     "7pqrstsixteen",
+# ]
+
 
 upd_calibration_strings = []
 
+total = 0  # Initializes inital total
+i = 0
 
 str_list_number = {
     "zero": "0",
@@ -32,12 +35,12 @@ str_list_number = {
     "nine": "9",
 }
 
-
 int_list_numbers = (
     "0123456789"  # Digits from 1 - 9 in string format to compare within the loop
 )
 
-
+# Function to convert string numbers into integers
+print("Converting all strings into integer format \n")
 for calibration_string in initial_calibration_strings:
     print(f"Current string: {calibration_string}")
     working_str = ""
@@ -63,33 +66,31 @@ for calibration_string in initial_calibration_strings:
                 else:
                     continue
     upd_calibration_strings.append(append_str)
-print(upd_calibration_strings)
+print("Completed string conversion. Calculating calibration strings. \n")
 
-# total = 0  # Initializes inital total
-# i = 0
 
-# for calibration_string in calibration_strings:  # Checks each string provided
-#     i += 1
-#     print(f"Iteration: {i} - Current calibration string is {calibration_string}")
-#     calibration_value = ""  # Initalizes empty string to be appended
-#     for char in calibration_string:  # Checks each individual string character
-#         if char in int_list_numbers:
-#             calibration_value = (
-#                 calibration_value + char
-#             )  # Concatenates the current character if it is present in the list_numbers variable
-#         else:
-#             continue
-#     print(f"Unadjusted calibration value: {calibration_value}")
-#     if (
-#         len(calibration_value) != 2
-#     ):  # Takes only the first and last digits if string is larger than 2 digits
-#         first_char = calibration_value[0]
-#         last_char = calibration_value[-1]
-#         calibration_value = first_char + last_char
-#         print("Calibration value has been adjusted")
-#     else:
-#         print("Current value does not need adjusting. Skipping")
-#     print(f"Calibration value is: {calibration_value}")
-#     total += int(calibration_value)
-#     print(f"Current total is {total} \n")
-# print(f"Sum of all calibration values is {total}")
+for calibration_string in upd_calibration_strings:  # Checks each string provided
+    i += 1
+    print(f"Iteration: {i} - Current calibration string is {calibration_string}")
+    calibration_value = ""  # Initalizes empty string to be appended
+    for char in calibration_string:  # Checks each individual string character
+        if char in int_list_numbers:
+            calibration_value = (
+                calibration_value + char
+            )  # Concatenates the current character if it is present in the list_numbers variable
+        else:
+            continue
+    print(f"Unadjusted calibration value: {calibration_value}")
+    if (
+        len(calibration_value) != 2
+    ):  # Takes only the first and last digits if string is larger than 2 digits
+        first_char = calibration_value[0]
+        last_char = calibration_value[-1]
+        calibration_value = first_char + last_char
+        print("Calibration value has been adjusted")
+    else:
+        print("Current value does not need adjusting. Skipping")
+    print(f"Calibration value is: {calibration_value}")
+    total += int(calibration_value)
+    print(f"Current total is {total} \n")
+print(f"Sum of all calibration values is {total}")
