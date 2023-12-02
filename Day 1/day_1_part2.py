@@ -22,6 +22,7 @@ upd_calibration_strings = []
 total = 0  # Initializes inital total
 i = 0
 
+# Dictionary to compare when converting string number to integers
 str_list_number = {
     "zero": "0",
     "one": "1",
@@ -35,11 +36,9 @@ str_list_number = {
     "nine": "9",
 }
 
-int_list_numbers = (
-    "0123456789"  # Digits from 1 - 9 in string format to compare within the loop
-)
+int_list_numbers = "0123456789"  # Digits from 1 - 9 in string format to compare within calculation loop
 
-# Function to convert string numbers into integers
+# Function to convert string numbers into integers and append to new list
 print("Converting all strings into integer format \n")
 for calibration_string in initial_calibration_strings:
     print(f"Current string: {calibration_string}")
