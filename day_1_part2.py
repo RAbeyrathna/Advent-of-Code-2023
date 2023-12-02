@@ -5,7 +5,7 @@
 #     calibration_strings.append(string)  # Updates lines with new string
 
 initial_calibration_strings = [
-    # "two1nine",
+    "two1nine",
     # "eightwothree",
     # "abcone2threexyz",
     # "xtwone3four",
@@ -13,28 +13,17 @@ initial_calibration_strings = [
     "zoneight234",
     # "7pqrstsixteen",
     # "eighthree",
-    # "sevenine",
+    "sevenine",
 ]
 
 upd_calibration_strings = []
 
-# str_list_number = [
-#     "zero",
-#     "one",
-#     "two",
-#     "three",
-#     "four",
-#     "five",
-#     "six",
-#     "seven",
-#     "eight",
-#     "nine",
-# ]
+
 str_list_number = {
     "zero": "0",
     "one": "1",
-    "three": "2",
-    "four": "3",
+    "two": "2",
+    "three": "3",
     "four": "4",
     "five": "5",
     "six": "6",
@@ -48,11 +37,6 @@ int_list_numbers = (
     "0123456789"  # Digits from 1 - 9 in string format to compare within the loop
 )
 
-# eightseven2
-# e
-#   working_str = nine
-#   append_str = 4
-#
 
 for calibration_string in initial_calibration_strings:
     print(f"Current string: {calibration_string}")
@@ -69,14 +53,15 @@ for calibration_string in initial_calibration_strings:
             print(
                 f"Character is not a number. Updating working string to {working_str}"
             )
-            if working_str in str_list_number:
-                append_str = append_str + str_list_number[working_str]
-                print(
-                    f"Current working string is in list ({working_str}) Appending {str_list_number[working_str]} \n"
-                )
-                working_str = ""
-            else:
-                continue
+            for str_num in str_list_number:
+                if str_num in working_str:
+                    print(
+                        f"Current working string is in list ({working_str}) Appending {str_num} \n"
+                    )
+                    append_str = append_str + str_list_number[str_num]
+                    working_str = working_str[-1]
+                else:
+                    continue
     upd_calibration_strings.append(append_str)
 print(upd_calibration_strings)
 
