@@ -6,19 +6,13 @@
 #     "......#...",
 #     "617*......",
 #     ".....+.58.",
-#     "..592.....",
+#     "..592....*",
 #     "......755.",
-#     "...$.*....",
+#     "...$......",
 #     ".664.598..",
 # ]
 
-# schematic_list = [
-#     "311...672...34...391.....591......828.......................738....................223....803..472..................................714.840.",
-#     ".......*...........*.....*...........*........631%...703.......*..12....652.................*.$............368.769*148.................*....",
-#     "....411...........2....837.121........511.745...........*.48.422.@.........@.............311........887......*................457........595",
-#     "........*328...............&..........................144.*...................138............48.......*......682.........@...*.......777....",
-# ]
-
+# # Imports read data for challenge
 schematic_list_file = open("day_3_input.txt", "r")
 schematic_list = []
 for string in schematic_list_file:
@@ -36,8 +30,11 @@ while i < len(schematic_list):
     current_num = ""
     current_num_si = 0
     current_num_ei = 0
-    print(f"Iteration {i + 1}: Current list is {schematic_list[i]}")
-    for charid, char in enumerate(schematic_list[i]):
+    previousLine = schematic_list[i - 1]
+    current_line = schematic_list[i]
+    nextLine = schematic_list[i + 1] if (i != len(schematic_list) - 1) else None
+    print(f"Iteration {i + 1}: Current list is {current_line}")
+    for charid, char in enumerate(current_line):
         above_passed = False
         if char.isdigit() == True:
             print(f"{char} is a digit")
@@ -64,26 +61,24 @@ while i < len(schematic_list):
                 continue
             else:
                 print("No special characters detected next to number\n")
-                # print(
-                #     f"Printing indexes: {test_list[i][current_num_si - 2]} {test_list[i][current_num_ei]}"
-                # )
                 if i != 0:  # Don't check list above if on first list
                     print(
                         f"Starting check for special characters ajacent on line above {current_num}"
                     )
                     for index in range(current_num_si - 2, current_num_ei + 1):
-                        if schematic_list[i - 1][index] in special_characters:
+                        if previousLine[index] in special_characters:
                             print(
-                                f"Found special character {schematic_list[i - 1][index]} on line above. Adding number to total."
+                                f"Found special character {previousLine[index]} on line above. Adding number to total."
                             )
                             total += int(current_num)
                             current_num = ""
                             print(f"Total is now {total}\n\n")
+                            # Skip iterating through line below if special character was found
                             above_passed = True
                             break
                         else:
                             print(
-                                f"{schematic_list[i - 1][index]} is not a special chracter. Checking next character."
+                                f"{previousLine[index]} is not a special chracter. Checking next character."
                             )
                             above_passed = False
                 if (i != len(schematic_list) - 1) and (
@@ -93,18 +88,16 @@ while i < len(schematic_list):
                         f"Starting check for special characters ajacent on line below {current_num}"
                     )
                     for index in range(current_num_si - 2, current_num_ei + 1):
-                        if schematic_list[i + 1][index] in special_characters:
+                        if nextLine[index] in special_characters:
                             print(
-                                f"Found special character {schematic_list[i + 1][index]} on line below. Adding number to total."
+                                f"Found special character {nextLine[index]} on line below. Adding number to total."
                             )
                             total += int(current_num)
                             current_num = ""
                             print(f"Total is now {total}\n\n")
                             break
                         else:
-                            print(
-                                f"{schematic_list[i + 1][index]} is not a special chracter"
-                            )
+                            print(f"{nextLine[index]} is not a special chracter")
                     print(
                         f"No special characters found below {current_num} Continuing code..\n\n"
                     )
