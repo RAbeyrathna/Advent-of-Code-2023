@@ -13,12 +13,20 @@
 # ]
 
 # # Imports read data for challenge
-schematic_list_file = open("day_3_input.txt", "r")
-schematic_list = []
-for string in schematic_list_file:
-    string = string.strip()  # Remove /n from each string
-    schematic_list.append(string)  # Updates lines with new string
+# schematic_list_file = open("day_3_input.txt", "r")
+# schematic_list = []
+# for string in schematic_list_file:
+#     string = string.strip()  # Remove /n from each string
+#     schematic_list.append(string)  # Updates lines with new string
 
+schematic_list = [
+    "1-......",
+    "........",
+    "%.....-1",
+    "1..%....",
+    ".24.....",
+    "^.....*2",
+]
 
 special_characters = "!@#$%^&*()-+?_=,<>/"
 
@@ -36,25 +44,33 @@ while i < len(schematic_list):
     print(f"Iteration {i + 1}: Current list is {current_line}")
     for charid, char in enumerate(current_line):
         above_passed = False
-        if char.isdigit() == True:
+        if (char.isdigit() == True) and (charid != 7):
             print(f"{char} is a digit")
             current_num = current_num + char
-        elif char.isdigit() == False and current_num != "":
-            current_num_ei = charid
-            current_num_si = current_num_ei - len(current_num) + 1
-            print(
-                f"Complete number is {current_num}. It's start index is {current_num_si} and it's final index is {current_num_ei}\n"
-            )
+        elif (char.isdigit() == False and current_num != "") or (
+            char.isdigit() == True and charid == 7
+        ):
+            if (char.isdigit() == True) and (charid == 7):
+                current_num = char
+                current_num_ei = charid
+                current_num_si = charid + 1
+                print(f"Complete number is {current_num} as it is the edge number.\n")
+            else:
+                current_num_ei = charid
+                current_num_si = current_num_ei - len(current_num) + 1
+                print(f"Complete number is {current_num}\n")
             print(
                 f"Starting check for special characters directly next to {current_num}"
             )
             if (schematic_list[i][current_num_si - 2]) in special_characters or (
                 schematic_list[i][current_num_ei] in special_characters
             ):
-                print(f"Special character detected. Adding number to total.\n")
                 print(
-                    f"Printing indexes: {schematic_list[i][current_num_si - 2]} {schematic_list[i][current_num_ei]}"
+                    f"Special character detected directly beside {current_num}. Adding number to total.\n"
                 )
+                # print(
+                #     f"Printing indexes: {schematic_list[i][current_num_si - 2]} {schematic_list[i][current_num_ei]}"
+                # )
                 total += int(current_num)
                 current_num = ""
                 print(f"Total is now {total}\n\n")
@@ -101,6 +117,7 @@ while i < len(schematic_list):
                     print(
                         f"No special characters found below {current_num} Continuing code..\n\n"
                     )
+
             current_num = ""
         else:
             # print(f"{char} is not a digit")
